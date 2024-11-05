@@ -1,0 +1,77 @@
+/* Reset básico */
+body, h1, input, button, ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* Estilização do corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Estilização do título */
+h1 {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
+
+/* Estilização do input de tarefa */
+#taskInput {
+    padding: 10px;
+    width: 300px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+/* Estilização do input ao focar */
+#taskInput:focus {
+    border-color: #2980b9;
+}
+
+/* Estilização do botão */
+button {
+    padding: 10px 15px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s;
+}
+
+/* Estilização do botão ao passar o mouse */
+button:hover {
+    background-color: #2980b9;
+}
+
+/* Estilização da lista de tarefas */
+#taskList {
+    margin-top: 20px;
+    width: 300px;
+}
+
+/* Estilização dos itens da lista */
+#taskList li {
+    background-color: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: background-color 0.3s;
+}
+
+/* Estilização dos itens da lista ao passar o mouse */
+#taskList li:hover {
+    background-color: #ecf0f1;
+}

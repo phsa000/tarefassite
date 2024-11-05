@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tarefas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Lista de Tarefas</h1>
+    <input type="text" id="taskInput" placeholder="Nova tarefa">
+    <button onclick="addTask()">Adicionar Tarefa</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        async function fetchTasks() {
+            const response = await fetch('http://localhost:3000/tasks');
+            const tasks = await response.json();
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+            tasks.forEach(task => {
+                const li = document.createElement('li');
+                li.textContent = task.title; // Certifique-se de usar task.title
+                taskList.appendChild(li);
+            });
+        }
+
+        async function addTask() {
+            const title = document.getElementById('taskInput').value; // Obtenha o valor do input
+            if (!title) {
+                alert('Por favor, insira uma tarefa.');
+                return; // Não prosseguir se o título estiver vazio
+            }
+            await fetch('http://localhost:3000/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title }) // Enviar o título no corpo da requisição
+            });
+            document.getElementById('taskInput').value = '';
+            fetchTasks();
+        }
+
+        fetchTasks(); // Chama a função para carregar as tarefas ao iniciar
+    </script>
+</body>
+</html>
