@@ -20,27 +20,27 @@
             taskList.innerHTML = '';
             tasks.forEach(task => {
                 const li = document.createElement('li');
-                li.textContent = task.title; // Certifique-se de usar task.title
+                li.textContent = task.title;
                 taskList.appendChild(li);
             });
         }
 
         async function addTask() {
-            const title = document.getElementById('taskInput').value; // Obtenha o valor do input
+            const title = document.getElementById('taskInput').value;
             if (!title) {
                 alert('Por favor, insira uma tarefa.');
-                return; // Não prosseguir se o título estiver vazio
+                return;
             }
             await fetch('http://localhost:3000/tasks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title }) // Enviar o título no corpo da requisição
+                body: JSON.stringify({ title })
             });
             document.getElementById('taskInput').value = '';
             fetchTasks();
         }
 
-        fetchTasks(); // Chama a função para carregar as tarefas ao iniciar
+        fetchTasks();
     </script>
 </body>
 </html>

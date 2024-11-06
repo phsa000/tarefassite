@@ -1,11 +1,9 @@
-/* Reset básico */
 body, h1, input, button, ul, li {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-/* Estilização do corpo da página */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -17,13 +15,11 @@ body {
     height: 100vh;
 }
 
-/* Estilização do título */
 h1 {
     margin-bottom: 20px;
     color: #2c3e50;
 }
 
-/* Estilização do input de tarefa */
 #taskInput {
     padding: 10px;
     width: 300px;
@@ -33,12 +29,10 @@ h1 {
     transition: border-color 0.3s;
 }
 
-/* Estilização do input ao focar */
 #taskInput:focus {
     border-color: #2980b9;
 }
 
-/* Estilização do botão */
 button {
     padding: 10px 15px;
     background-color: #3498db;
@@ -50,18 +44,15 @@ button {
     transition: background-color 0.3s;
 }
 
-/* Estilização do botão ao passar o mouse */
 button:hover {
     background-color: #2980b9;
 }
 
-/* Estilização da lista de tarefas */
 #taskList {
     margin-top: 20px;
     width: 300px;
 }
 
-/* Estilização dos itens da lista */
 #taskList li {
     background-color: white;
     padding: 10px;
@@ -71,7 +62,6 @@ button:hover {
     transition: background-color 0.3s;
 }
 
-/* Estilização dos itens da lista ao passar o mouse */
 #taskList li:hover {
     background-color: #ecf0f1;
 }

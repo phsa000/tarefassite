@@ -2,23 +2,22 @@ const express = require('express');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-// Middleware para interpretar o corpo das requisições como JSON
 app.use(bodyParser.json());
-app.use(cors()); // Permite CORS
+app.use(cors());
 
-// Configuração da conexão MySQL
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root', // ou seu nome de usuário
-    password: 'root', // a senha que você definiu
-    database: 'todo_app' // substitua pelo seu banco de dados
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    port: process.env.DB_PORT || 3306
 });
 
-// Conexão com o MySQL
 connection.connect((err) => {
     if (err) {
         console.error('Erro ao conectar ao MySQL:', err);
@@ -27,7 +26,6 @@ connection.connect((err) => {
     console.log('Conectado ao MySQL!');
 });
 
-// Rota para obter todas as tarefas
 app.get('/tasks', (req, res) => {
     connection.query('SELECT * FROM tasks', (err, results) => {
         if (err) {
@@ -37,22 +35,33 @@ app.get('/tasks', (req, res) => {
     });
 });
 
-// Rota para adicionar uma nova tarefa
 app.post('/tasks', (req, res) => {
-    const { title } = req.body; // Desestrutura o título do corpo da requisição
+    const { title } = req.body;
     if (!title) {
-        return res.status(400).send('Título é obrigatório'); // Retornar erro se o título não estiver presente
+        return res.status(400).send('O título é obrigatório');
     }
+    
     connection.query('INSERT INTO tasks (title) VALUES (?)', [title], (err, results) => {
         if (err) {
-            console.error('Erro ao adicionar tarefa:', err); // Log do erro
             return res.status(500).send('Erro ao adicionar tarefa');
         }
         res.status(201).send({ id: results.insertId, title });
     });
 });
 
-// Inicia o servidor
+app.delete('/tasks/:id', (req, res) => {
+    const taskId = req.params.id;
+    connection.query('DELETE FROM tasks WHERE id = ?', [taskId], (err, results) => {
+        if (err) {
+            return res.status(500).send('Erro ao deletar tarefa');
+        }
+        if (results.affectedRows === 0) {
+            return res.status(404).send('Tarefa não encontrada');
+        }
+        res.status(200).send(`Tarefa ${taskId} deletada com sucesso`);
+    });
+});
+
 app.listen(port, () => {
     console.log(`Servidor rodando na porta ${port}`);
 });
